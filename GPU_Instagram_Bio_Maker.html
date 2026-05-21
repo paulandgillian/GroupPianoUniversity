@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPU Instagram Bio Maker</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #fff; color: #1a1a1a; padding: 2rem 1rem; font-size: 18px; }
+  .bb { max-width: 680px; margin: 0 auto; }
+  h2 { font-size: 28px; font-weight: 700; color: #D41E65; margin: 0 0 0.25rem; }
+  .sub { font-size: 19px; color: #666; margin: 0 0 2rem; line-height: 1.6; }
+  .section { margin-bottom: 1.5rem; }
+  .section-label { font-size: 14px; font-weight: 700; color: #D41E65; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+  .options { display: flex; flex-direction: column; gap: 6px; }
+  .opt { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1px solid #e5e5e5; border-radius: 8px; cursor: pointer; background: #fff; transition: border-color 0.15s, background 0.15s; }
+  .opt:hover { border-color: #D41E65; }
+  .opt.selected { border-color: #D41E65; background: #FFD6E2; }
+  .opt input[type=radio] { margin-top: 3px; accent-color: #D41E65; flex-shrink: 0; }
+  .opt-text { font-size: 18px; color: #1a1a1a; line-height: 1.6; }
+  .free-input { width: 100%; padding: 10px 14px; font-size: 17px; border: 1px solid #e5e5e5; border-radius: 8px; color: #1a1a1a; background: #fff; }
+  .free-input:focus { outline: none; border-color: #D41E65; box-shadow: 0 0 0 3px rgba(212,30,101,0.1); }
+  .divider { border: none; border-top: 1px solid #f0f0f0; margin: 2rem 0; }
+  .generate-btn { background: #D41E65; color: white; border: none; border-radius: 8px; padding: 16px 24px; font-size: 18px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 0.5rem; transition: background 0.15s; }
+  .generate-btn:hover { background: #b01854; }
+  .output-card { background: #fafafa; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; }
+  .output-label { font-size: 14px; font-weight: 700; color: #D41E65; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+  .bio-text { font-size: 18px; color: #1a1a1a; line-height: 1.9; white-space: pre-line; }
+  .char-bar { margin-top: 1rem; }
+  .char-label { font-size: 14px; color: #888; margin-bottom: 4px; }
+  .char-track { background: #e5e5e5; border-radius: 99px; height: 8px; overflow: hidden; }
+  .char-fill { height: 8px; border-radius: 99px; background: #22c55e; transition: width 0.3s, background 0.3s; }
+  .char-fill.warning { background: #f59e0b; }
+  .char-fill.over { background: #dc2626; }
+  .char-count { font-size: 15px; margin-top: 6px; color: #888; }
+  .char-count.over { color: #dc2626; font-weight: 600; }
+  .char-tip { font-size: 14px; color: #dc2626; margin-top: 6px; display: none; }
+  .btn-row { display: flex; gap: 8px; margin-top: 1.25rem; flex-wrap: wrap; }
+  .copy-btn { padding: 10px 20px; font-size: 16px; border: 1px solid #e5e5e5; border-radius: 8px; background: #fff; color: #1a1a1a; cursor: pointer; transition: background 0.15s; }
+  .copy-btn:hover { background: #f5f5f5; }
+  .copy-btn.pink { background: #D41E65; color: white; border-color: #D41E65; }
+  .copy-btn.pink:hover { background: #b01854; }
+  .warning-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; padding: 12px 16px; margin-bottom: 1.5rem; font-size: 16px; color: #92400e; line-height: 1.6; display: none; }
+  .ig-note { background: #FFD6E2; border-radius: 10px; padding: 14px 18px; margin-bottom: 2rem; font-size: 16px; color: #7a0a35; line-height: 1.6; }
+  @media (max-width: 480px) {
+    body { padding: 1.5rem 1rem; }
+    .btn-row { flex-direction: column; }
+    .copy-btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="bb">
+
+  <h2>GPU Instagram Bio Maker</h2>
+  <p class="sub">Instagram bios are limited to 150 characters. Every option here is designed to keep you under that limit. Enter your suburb, pick one option from each line, and generate.</p>
+
+  <div class="ig-note">📱 <strong>Instagram tip:</strong> Once you have generated your bio, paste it directly into Instagram and edit it there. You can see exactly how it looks on your profile in real time — adjusting line breaks and wording until it feels right on a phone screen.</div>
+
+  <div class="section">
+    <div class="section-label">Your suburb</div>
+    <input class="free-input" id="suburb" type="text" placeholder="e.g. Mosman" />
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">Line 1 — what you do and where</div>
+    <div class="options" id="line1"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Line 2 — what makes your teaching special</div>
+    <div class="options" id="line2"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Line 3 — warmth or trust signal</div>
+    <div class="options" id="line3"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Line 4 — call to action</div>
+    <div class="options" id="line4"></div>
+  </div>
+
+  <div class="warning-box" id="warningBox">Please select one option from each line before generating.</div>
+
+  <button class="generate-btn" onclick="generateBio()">Generate my Instagram bio</button>
+
+  <div id="output" style="display:none;">
+    <div class="output-card">
+      <div class="output-label">Your Instagram bio</div>
+      <div class="bio-text" id="bioText"></div>
+      <div class="char-bar">
+        <div class="char-label">Character count</div>
+        <div class="char-track"><div class="char-fill" id="charFill" style="width:0%"></div></div>
+        <div class="char-count" id="charCount"></div>
+        <div class="char-tip" id="charTip">Your suburb name may be affecting the count. Copy the bio, paste it directly into Instagram and edit it there — you can see exactly how it looks on your profile in real time as you type.</div>
+      </div>
+      <div class="btn-row">
+        <button class="copy-btn pink" onclick="copyBio(this)">Copy bio</button>
+        <button class="copy-btn" onclick="tryAgain()">Try different options</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const lines = {
+  1: [
+    "Piano lessons in [SUBURB] · all ages",
+    "Piano teacher in [SUBURB] · all levels",
+    "Music lessons in [SUBURB] · kids to adults",
+    "Learn piano in [SUBURB] · beginners welcome",
+    "Piano in [SUBURB] · fall in love with music",
+  ],
+  2: [
+    "Confidence, joy and real progress",
+    "Passionate about every student's journey",
+    "Helping students find their love for music",
+    "Patient lessons for all ages and levels",
+    "Tailored to age, pace & personality",
+  ],
+  3: [
+    "Beginners always welcome",
+    "Where students feel seen and celebrated",
+    "Each student learns at their own pace",
+    "A welcoming home studio",
+  ],
+  4: [
+    "🎵 DM me and let's chat.",
+    "🎵 Let's see if we're a good fit.",
+    "🎵 Happy to answer questions. DM me.",
+    "🎵 Peek at the link in bio.",
+  ],
+};
+
+function renderOptions() {
+  [1,2,3,4].forEach(function(n) {
+    var container = document.getElementById('line' + n);
+    lines[n].forEach(function(text, i) {
+      var div = document.createElement('div');
+      div.className = 'opt';
+      div.id = 'opt_' + n + '_' + i;
+      div.innerHTML = '<input type="radio" name="line' + n + '" value="' + i + '" onchange="selectOpt(' + n + ',' + i + ')"><span class="opt-text">' + text + '</span>';
+      div.onclick = function() { div.querySelector('input').checked = true; selectOpt(n, i); };
+      container.appendChild(div);
+    });
+  });
+}
+
+function selectOpt(line, idx) {
+  for (var i = 0; i < lines[line].length; i++) {
+    var el = document.getElementById('opt_' + line + '_' + i);
+    if (el) el.classList.remove('selected');
+  }
+  var sel = document.getElementById('opt_' + line + '_' + idx);
+  if (sel) sel.classList.add('selected');
+}
+
+function getSelected(line) {
+  var checked = document.querySelector('input[name="line' + line + '"]:checked');
+  return checked ? parseInt(checked.value) : null;
+}
+
+function generateBio() {
+  var suburb = document.getElementById('suburb').value.trim() || 'your suburb';
+  var s = [1,2,3,4].map(getSelected);
+  var wb = document.getElementById('warningBox');
+  if (s[0] === null || s[1] === null || s[2] === null || s[3] === null) {
+    wb.style.display = 'block';
+    return;
+  }
+  wb.style.display = 'none';
+
+  var bio = [
+    lines[1][s[0]].replace('[SUBURB]', suburb),
+    lines[2][s[1]],
+    lines[3][s[2]],
+    lines[4][s[3]],
+  ].join('\n');
+
+  document.getElementById('bioText').textContent = bio;
+
+  var len = bio.replace(/\n/g, '').length;
+  var pct = Math.min((len / 150) * 100, 100);
+  var fill = document.getElementById('charFill');
+  var cc = document.getElementById('charCount');
+  var tip = document.getElementById('charTip');
+
+  fill.style.width = pct + '%';
+  fill.className = 'char-fill' + (len > 150 ? ' over' : len > 130 ? ' warning' : '');
+  cc.textContent = len + ' / 150 characters';
+  cc.className = 'char-count' + (len > 150 ? ' over' : '');
+  tip.style.display = len > 150 ? 'block' : 'none';
+
+  document.getElementById('output').style.display = 'block';
+  document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyToClipboard(text, btn, label) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = label; }, 1800);
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    ta.style.top = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); btn.textContent = 'Copied!'; }
+    catch(e) { btn.textContent = 'Select and copy manually'; }
+    document.body.removeChild(ta);
+    setTimeout(function() { btn.textContent = label; }, 1800);
+  }
+}
+
+function copyBio(btn) {
+  copyToClipboard(document.getElementById('bioText').textContent, btn, 'Copy bio');
+}
+
+function tryAgain() {
+  document.getElementById('output').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+renderOptions();
+</script>
+</body>
+</html>
