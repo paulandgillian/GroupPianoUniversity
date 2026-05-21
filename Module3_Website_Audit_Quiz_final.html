@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Studio Website Playbook  -  Module 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --pink: #D41E65; --pink-light: #FFD6E2; --pink-mid: #F69EB4;
+  --lav: #7B2FA0; --black: #1A1A18; --gray: #F5F3EE;
+  --border: #E8E4DD; --muted: #888;
+  --green: #1A7A52; --green-light: #D6F5E8;
+  --amber: #C47A00; --amber-light: #FFF0CC;
+  --red: #C0392B; --red-light: #FDECEA; --text: #2C2C2A;
+}
+body { font-family: 'DM Sans', sans-serif; background: #FAFAF8; color: var(--text); min-height: 100vh; }
+.screen { display: none; }
+.screen.active { display: block; }
+#screen-intro.active { display: flex; }
+#screen-no-website.active { display: flex; }
+
+/* INTRO */
+#screen-intro {
+  min-height: 100vh; display: none; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 48px 24px; background: var(--black);
+  position: relative; overflow: hidden;
+}
+#screen-intro.active { display: flex; }
+#screen-intro::before {
+  content: ''; position: absolute; top: -200px; right: -200px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,30,101,0.25) 0%, transparent 70%); pointer-events: none;
+}
+#screen-intro::after {
+  content: ''; position: absolute; bottom: -150px; left: -100px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(123,47,160,0.2) 0%, transparent 70%); pointer-events: none;
+}
+.intro-badge {
+  background: rgba(212,30,101,0.15); border: 1px solid rgba(212,30,101,0.4);
+  color: var(--pink-mid); font-size: 13px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 20px; margin-bottom: 28px;
+  animation: fadeUp 0.6s ease both;
+}
+.intro-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(38px, 7vw, 64px); font-weight: 900;
+  color: white; text-align: center; line-height: 1.1;
+  margin-bottom: 20px; max-width: 680px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.intro-title em { color: var(--pink); font-style: italic; }
+.intro-sub {
+  font-size: 18px; color: rgba(255,255,255,0.65); text-align: center;
+  max-width: 540px; line-height: 1.75; margin-bottom: 28px; font-weight: 300;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+.mobile-stat {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px; padding: 18px 22px; max-width: 540px;
+  text-align: center; margin-bottom: 36px;
+  animation: fadeUp 0.6s 0.25s ease both;
+}
+.stat-label {
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--pink-mid);
+  margin-bottom: 10px;
+}
+.stat-num {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 40px; font-weight: 900; color: var(--pink); line-height: 1; margin-bottom: 8px;
+}
+.stat-text { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.6; font-weight: 300; }
+.stat-text strong { color: rgba(255,255,255,0.8); font-weight: 500; }
+.intro-pills {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  justify-content: center; margin-bottom: 44px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+.intro-pill {
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.75); font-size: 14px; padding: 7px 16px; border-radius: 20px;
+}
+.intro-pill span { color: var(--pink-mid); margin-right: 6px; }
+.btn-start {
+  background: var(--pink); color: white; font-family: 'DM Sans', sans-serif;
+  font-size: 17px; font-weight: 600; padding: 18px 52px; border: none;
+  border-radius: 50px; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 32px rgba(212,30,101,0.4);
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.btn-start:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(212,30,101,0.5); }
+
+/* NO WEBSITE EXIT */
+#screen-no-website {
+  min-height: 100vh; display: none; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 48px 24px; background: var(--black);
+  position: relative; overflow: hidden; text-align: center;
+}
+#screen-no-website.active { display: flex; }
+#screen-no-website::before {
+  content: ''; position: absolute; top: -200px; right: -200px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,122,0,0.18) 0%, transparent 70%); pointer-events: none;
+}
+.exit-emoji { font-size: 64px; margin-bottom: 24px; animation: fadeUp 0.5s ease both; }
+.exit-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(28px, 6vw, 48px); font-weight: 900;
+  color: white; margin-bottom: 16px; max-width: 560px;
+  line-height: 1.15; animation: fadeUp 0.5s 0.1s ease both;
+}
+.exit-title em { color: var(--pink); font-style: italic; }
+.exit-body {
+  font-size: 17px; color: rgba(255,255,255,0.6); max-width: 500px;
+  line-height: 1.75; font-weight: 300; margin-bottom: 32px;
+  animation: fadeUp 0.5s 0.2s ease both;
+}
+.exit-body strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+.exit-action-box {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px; padding: 24px 28px; max-width: 500px;
+  text-align: left; margin-bottom: 32px;
+  animation: fadeUp 0.5s 0.3s ease both;
+}
+.eab-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--pink-mid); margin-bottom: 16px;
+}
+.eab-item {
+  display: flex; gap: 14px; font-size: 15px;
+  color: rgba(255,255,255,0.7); line-height: 1.6;
+  margin-bottom: 14px; align-items: flex-start;
+}
+.eab-item:last-child { margin-bottom: 0; }
+.eab-num {
+  background: var(--pink); color: white; width: 26px; height: 26px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; flex-shrink: 0; margin-top: 2px;
+}
+.exit-reminder {
+  font-size: 15px; color: rgba(255,255,255,0.4); max-width: 420px;
+  line-height: 1.6; font-style: italic; margin-bottom: 32px;
+  animation: fadeUp 0.5s 0.35s ease both;
+}
+.btn-exit-back {
+  background: none; border: 1.5px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.6); font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 500; padding: 13px 32px;
+  border-radius: 50px; cursor: pointer; transition: all 0.2s;
+  animation: fadeUp 0.5s 0.4s ease both;
+}
+.btn-exit-back:hover { border-color: rgba(255,255,255,0.4); color: white; }
+
+/* QUIZ */
+#screen-quiz { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; }
+.progress-wrap { margin-bottom: 36px; }
+.progress-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.progress-section-name { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--pink); }
+.progress-count { font-size: 14px; color: var(--muted); font-weight: 500; }
+.progress-bar { height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--pink), var(--lav)); border-radius: 4px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+
+.section-header { background: var(--black); border-radius: 16px; padding: 24px 28px; margin-bottom: 28px; position: relative; overflow: hidden; }
+.section-header::after { content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(212,30,101,0.15); pointer-events: none; }
+.section-num { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--pink-mid); margin-bottom: 8px; }
+.section-title { font-family: 'Playfair Display', Georgia, serif; font-size: 26px; font-weight: 700; color: white; margin-bottom: 8px; }
+.section-desc { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.6; font-weight: 300; }
+.section-icon { position: absolute; top: 20px; right: 24px; font-size: 32px; opacity: 0.5; }
+
+.question-card { background: white; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; margin-bottom: 16px; transition: border-color 0.2s, box-shadow 0.2s; animation: fadeUp 0.4s ease both; }
+.question-card.answered { border-color: var(--pink-mid); box-shadow: 0 2px 12px rgba(212,30,101,0.08); }
+.q-number { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.q-text { font-size: 18px; font-weight: 500; color: var(--black); line-height: 1.5; margin-bottom: 16px; }
+.q-hint { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 18px; font-style: italic; padding: 12px 16px; background: var(--gray); border-radius: 8px; border-left: 3px solid var(--border); }
+
+.options { display: flex; flex-direction: column; gap: 10px; }
+.option { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.18s; background: var(--gray); font-size: 16px; font-weight: 400; color: var(--text); text-align: left; width: 100%; font-family: 'DM Sans', sans-serif; }
+.option:hover { border-color: var(--pink-mid); background: var(--pink-light); }
+.option.selected { border-color: var(--pink); background: var(--pink-light); color: var(--black); font-weight: 500; }
+.option.selected .opt-dot { background: var(--pink); border-color: var(--pink); }
+.option.selected .opt-dot::after { opacity: 1; }
+.opt-dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; position: relative; transition: all 0.18s; }
+.opt-dot::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 8px; height: 8px; border-radius: 50%; background: white; opacity: 0; transition: opacity 0.18s; }
+
+.quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+.btn-back { background: none; border: 1.5px solid var(--border); color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; padding: 14px 28px; border-radius: 50px; cursor: pointer; transition: all 0.18s; }
+.btn-back:hover { border-color: var(--text); color: var(--text); }
+.btn-back:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-next { background: var(--pink); color: white; font-family: 'DM Sans', sans-serif; font-size: 17px; font-weight: 600; padding: 15px 40px; border: none; border-radius: 50px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(212,30,101,0.3); display: flex; align-items: center; gap: 8px; }
+.btn-next:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,30,101,0.4); }
+.btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* RESULTS */
+#screen-results { max-width: 760px; margin: 0 auto; padding: 40px 20px 60px; }
+.results-header { text-align: center; margin-bottom: 48px; }
+.results-badge { display: inline-block; background: var(--pink-light); color: var(--pink); font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+.results-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(30px, 5vw, 46px); font-weight: 900; color: var(--black); margin-bottom: 10px; line-height: 1.15; }
+.results-title em { color: var(--pink); font-style: italic; }
+.results-sub { font-size: 17px; color: var(--muted); max-width: 480px; margin: 0 auto; line-height: 1.6; font-weight: 300; }
+
+.grade-card { border-radius: 20px; padding: 32px; margin-bottom: 32px; display: flex; align-items: center; gap: 28px; }
+.grade-card.great { background: var(--green-light); border: 2px solid #4DC898; }
+.grade-card.good { background: var(--amber-light); border: 2px solid #F5C842; }
+.grade-card.needs-work { background: var(--red-light); border: 2px solid #EF9D93; }
+.grade-letter { font-family: 'Playfair Display', Georgia, serif; font-size: 72px; font-weight: 900; line-height: 1; flex-shrink: 0; }
+.grade-card.great .grade-letter { color: var(--green); }
+.grade-card.good .grade-letter { color: var(--amber); }
+.grade-card.needs-work .grade-letter { color: var(--red); }
+.grade-label { font-size: 24px; font-weight: 700; color: var(--black); margin-bottom: 6px; }
+.grade-desc { font-size: 17px; color: var(--text); line-height: 1.6; }
+.grade-score { font-size: 16px; font-weight: 600; color: var(--muted); margin-top: 8px; }
+
+.section-cards-title { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; text-align: center; }
+.section-results-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 36px; }
+@media (max-width: 580px) { .section-results-grid { grid-template-columns: 1fr 1fr; } }
+.section-result-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 18px 16px; text-align: center; position: relative; overflow: hidden; }
+.section-result-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.section-result-card.green::before { background: var(--green); }
+.section-result-card.amber::before { background: var(--amber); }
+.section-result-card.red::before { background: var(--red); }
+.src-icon { font-size: 26px; margin-bottom: 8px; }
+.src-name { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; line-height: 1.3; }
+.src-light { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; }
+.src-light.green { background: var(--green-light); color: var(--green); }
+.src-light.amber { background: var(--amber-light); color: var(--amber); }
+.src-light.red { background: var(--red-light); color: var(--red); }
+.src-score { font-size: 13px; color: var(--muted); }
+
+.fixes-section { background: var(--black); border-radius: 20px; padding: 32px; margin-bottom: 32px; }
+.fixes-title { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 700; color: white; margin-bottom: 6px; }
+.fixes-sub { font-size: 15px; color: rgba(255,255,255,0.5); margin-bottom: 24px; font-weight: 300; }
+.fix-item { display: flex; gap: 16px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); align-items: flex-start; }
+.fix-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.fix-num { background: var(--pink); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; margin-top: 2px; }
+.fix-title-text { font-size: 17px; font-weight: 600; color: white; margin-bottom: 4px; }
+.fix-desc { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.6; font-weight: 300; }
+
+.working-section { background: var(--green-light); border: 1.5px solid #4DC898; border-radius: 16px; padding: 24px 26px; margin-bottom: 32px; }
+.working-title { font-size: 14px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.working-item { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; color: #1A4A35; margin-bottom: 8px; line-height: 1.5; }
+.working-item:last-child { margin-bottom: 0; }
+.tick { color: var(--green); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+.upsell-card { background: linear-gradient(135deg, var(--lav) 0%, #4A1A6A 100%); border-radius: 20px; padding: 28px 32px; margin-bottom: 32px; color: white; position: relative; overflow: hidden; }
+.upsell-card::after { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.06); pointer-events: none; }
+.upsell-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 10px; }
+.upsell-title { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+.upsell-desc { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.6; font-weight: 300; margin-bottom: 18px; }
+.upsell-btn { display: inline-block; background: white; color: var(--lav); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; padding: 12px 28px; border-radius: 50px; cursor: pointer; border: none; transition: transform 0.2s; }
+.upsell-btn:hover { transform: translateY(-1px); }
+
+.hw-box { background: var(--pink-light); border: 1.5px solid var(--pink-mid); border-radius: 16px; padding: 24px 28px; }
+.hw-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--pink); margin-bottom: 10px; }
+.hw-title { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 700; color: var(--black); margin-bottom: 14px; }
+.hw-list { list-style: none; padding: 0; }
+.hw-list li { display: flex; gap: 12px; font-size: 16px; color: var(--text); padding: 9px 0; border-bottom: 1px solid rgba(212,30,101,0.15); line-height: 1.5; }
+.hw-list li:last-child { border-bottom: none; }
+.hw-icon { flex-shrink: 0; font-size: 18px; margin-top: 1px; }
+
+.btn-restart { display: block; margin: 24px auto 0; background: none; border: 1.5px solid var(--border); color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 10px 24px; border-radius: 50px; cursor: pointer; transition: all 0.18s; }
+.btn-restart:hover { border-color: var(--pink); color: var(--pink); }
+
+/* ── BRIEF STYLES ── */
+.brief-wrap { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
+
+.brief-action-bar {
+  display: flex; gap: 12px; margin-bottom: 36px; flex-wrap: wrap;
+}
+.brief-action-bar .btn-pdf {
+  background: var(--pink); color: white; font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 600; padding: 13px 28px; border: none;
+  border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 4px 16px rgba(212,30,101,0.3); transition: all 0.2s;
+}
+.brief-action-bar .btn-pdf:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,30,101,0.4); }
+.brief-action-bar .btn-email:hover { border-color: var(--pink); color: var(--pink); }
+.brief-action-bar .btn-restart-small {
+  background: none; color: var(--muted); font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 400; padding: 13px 20px; border: 1.5px solid var(--border);
+  border-radius: 50px; cursor: pointer; margin-left: auto; transition: all 0.2s;
+}
+.brief-action-bar .btn-restart-small:hover { color: var(--pink); border-color: var(--pink); }
+
+
+
+/* Brief sections */
+.brief-chapter {
+  margin-bottom: 48px; page-break-inside: avoid;
+}
+.brief-chapter-header {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+  padding-bottom: 14px; border-bottom: 2px solid var(--pink);
+}
+.brief-chapter-num {
+  background: var(--pink); color: white; width: 32px; height: 32px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; flex-shrink: 0;
+}
+.brief-chapter-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--black); }
+
+/* Scorecard */
+.brief-overall-grade {
+  border-radius: 16px; padding: 24px 28px; display: flex; align-items: center;
+  gap: 24px; margin-bottom: 20px;
+}
+.brief-overall-grade.great { background: var(--green-light); border: 2px solid #4DC898; }
+.brief-overall-grade.good { background: var(--amber-light); border: 2px solid #F5C842; }
+.brief-overall-grade.needs-work { background: var(--red-light); border: 2px solid #EF9D93; }
+.brief-grade-letter { font-family: 'Playfair Display', serif; font-size: 60px; font-weight: 900; line-height: 1; flex-shrink: 0; }
+.brief-overall-grade.great .brief-grade-letter { color: var(--green); }
+.brief-overall-grade.good .brief-grade-letter { color: var(--amber); }
+.brief-overall-grade.needs-work .brief-grade-letter { color: var(--red); }
+.brief-grade-label { font-size: 22px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+.brief-grade-desc { font-size: 16px; color: var(--text); line-height: 1.6; }
+.brief-grade-score { font-size: 15px; color: var(--muted); margin-top: 6px; font-weight: 600; }
+
+.brief-section-scores { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 540px) { .brief-section-scores { grid-template-columns: 1fr; } }
+.brief-section-row {
+  background: white; border: 1.5px solid var(--border); border-radius: 12px;
+  padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+}
+.brief-section-icon { font-size: 22px; flex-shrink: 0; }
+.brief-section-info { flex: 1; }
+.brief-section-name { font-size: 15px; font-weight: 600; color: var(--black); }
+.brief-section-score { font-size: 14px; color: var(--muted); margin-top: 2px; }
+.brief-traffic-light {
+  font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; flex-shrink: 0;
+}
+.brief-traffic-light.green { background: var(--green-light); color: var(--green); }
+.brief-traffic-light.amber { background: var(--amber-light); color: var(--amber); }
+.brief-traffic-light.red { background: var(--red-light); color: var(--red); }
+
+/* Answers record */
+.brief-answers-grid { display: flex; flex-direction: column; gap: 8px; }
+.brief-answer-row {
+  background: white; border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 12px 16px; display: flex; gap: 12px; align-items: flex-start;
+}
+.brief-answer-row.low { border-left: 4px solid var(--red); }
+.brief-answer-row.mid { border-left: 4px solid var(--amber); }
+.brief-answer-row.high { border-left: 4px solid var(--green); }
+.brief-answer-q { font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+.brief-answer-a { font-size: 13.5px; font-weight: 500; color: var(--black); }
+.brief-answer-pts { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* Priority list */
+.brief-priority-item {
+  background: white; border: 1.5px solid var(--border); border-radius: 14px;
+  padding: 18px 20px; margin-bottom: 12px; display: flex; gap: 16px; align-items: flex-start;
+}
+.brief-priority-num {
+  background: var(--pink); color: white; width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 13px;
+  font-weight: 800; flex-shrink: 0; margin-top: 2px;
+}
+.brief-priority-title { font-size: 17px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+.brief-priority-why { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 6px; }
+.brief-priority-diff {
+  display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 10px;
+  border-radius: 20px; letter-spacing: 0.5px;
+}
+.brief-priority-diff.quick { background: var(--green-light); color: var(--green); }
+.brief-priority-diff.medium { background: var(--amber-light); color: var(--amber); }
+.brief-priority-diff.bigger { background: var(--red-light); color: var(--red); }
+
+/* Collection list */
+.collection-category { margin-bottom: 24px; }
+.collection-category-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--pink); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+}
+.collection-item {
+  display: flex; gap: 12px; padding: 10px 14px; background: white;
+  border: 1.5px solid var(--border); border-radius: 10px; margin-bottom: 8px; align-items: flex-start;
+}
+.collection-item.needed { border-left: 4px solid var(--red); }
+.collection-item.done { border-left: 4px solid var(--green); opacity: 0.7; }
+.collection-checkbox {
+  width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px;
+  flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.collection-item.done .collection-checkbox { background: var(--green); border-color: var(--green); color: white; font-size: 12px; }
+.collection-item-text { flex: 1; }
+.collection-item-title { font-size: 16px; font-weight: 600; color: var(--black); margin-bottom: 3px; }
+.collection-item-note { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+/* Designer brief */
+.brief-designer-section {
+  background: var(--black); border-radius: 16px; padding: 22px 24px; margin-bottom: 12px;
+}
+.brief-designer-section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--pink-mid); margin-bottom: 10px;
+}
+.brief-designer-row {
+  display: flex; gap: 12px; margin-bottom: 8px; font-size: 13px; align-items: flex-start;
+}
+.brief-designer-label { color: rgba(255,255,255,0.5); flex-shrink: 0; width: 120px; }
+.brief-designer-value { color: white; font-weight: 500; flex: 1; }
+.brief-designer-value.tbc { color: rgba(255,255,255,0.35); font-style: italic; font-weight: 400; }
+
+/* How to use */
+.how-to-step {
+  display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start;
+}
+.how-to-num {
+  background: var(--pink); color: white; width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 12px;
+  font-weight: 800; flex-shrink: 0; margin-top: 2px;
+}
+.how-to-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+.how-to-text strong { color: var(--black); }
+
+.brief-footer {
+  text-align: center; font-size: 12px; color: var(--muted); margin-top: 40px;
+  padding-top: 20px; border-top: 1px solid var(--border);
+}
+
+@media print {
+  /* Hide everything on the page by default */
+  body * { visibility: hidden !important; }
+  /* Then show only the brief content */
+  #printable-brief, #printable-brief * { visibility: visible !important; }
+  #printable-brief { position: absolute !important; left: 0 !important; top: 0 !important; width: 100% !important; }
+  /* Hide action bar and fireworks within brief */
+  .brief-action-bar, .burst, .firework, .email-modal-overlay { display: none !important; visibility: hidden !important; }
+  body { background: white !important; margin: 0 !important; padding: 0 !important; }
+  .brief-wrap { padding: 20px !important; max-width: 100% !important; }
+  .brief-chapter { page-break-inside: avoid; }
+  .brief-overall-grade, .brief-section-row, .collection-item, .brief-priority-item { page-break-inside: avoid; }
+}
+
+@media (max-width: 480px) {
+  .grade-card { flex-direction: column; text-align: center; gap: 16px; }
+  .quiz-nav { flex-direction: column-reverse; gap: 10px; }
+  .btn-back, .btn-next { width: 100%; justify-content: center; }
+}
+
+/* Fireworks */
+.burst { position:absolute; top:50%; left:50%; pointer-events:none; }
+.firework { position:absolute; width:6px; height:6px; border-radius:50%; animation: fw-explode 1.2s ease-out forwards; }
+@keyframes fw-explode {
+  0% { transform: translate(0,0) scale(1); opacity:1; }
+  100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity:0; }
+}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="screen-intro" class="screen active">
+  <div class="intro-badge">Module 3 · Week 3 Homework</div>
+  <h1 class="intro-title">Your Website<br><em>Playbook</em></h1>
+  <p class="intro-sub">Open your website on your phone - then answer this quiz on a tablet or computer. By the time you finish, you will have a detailed website brief you can work through yourself or hand straight to a web designer.</p>
+
+  <div class="mobile-stat">
+    <div class="stat-label">Why are we asking you to do this on your phone?</div>
+    <div class="stat-num">Mobile first</div>
+    <div class="stat-text">65-75% of parents searching for piano lessons do it on a phone. If your site doesn't work beautifully on a small screen, you're invisible to most of them.</div>
+  </div>
+
+  <div class="intro-pills">
+    <div class="intro-pill"><span>📋</span>25 questions</div>
+    <div class="intro-pill"><span>⏱</span>About 10 minutes</div>
+    <div class="intro-pill"><span>📊</span>Section-by-section results</div>
+    <div class="intro-pill"><span>🎯</span>Your top 3 fixes</div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">Start the Audit →</button>
+</div>
+
+<!-- NO WEBSITE EXIT -->
+<div id="screen-no-website" class="screen">
+  <div class="exit-emoji">🎹</div>
+  <h2 class="exit-title">No website yet? <em>You're in the right place</em></h2>
+  <p class="exit-body">This audit is specifically about your website - a dedicated web address that parents can visit directly. A Facebook or Instagram page is a great start, but it isn't the same thing. <strong>You're not there yet, and that's completely fine.</strong> It just means this particular tool isn't the right starting point for you right now.</p>
+  <div class="exit-action-box">
+    <div class="eab-title">What to do instead</div>
+    <div class="eab-item">
+      <div class="eab-num">1</div>
+      <span>Complete <strong>My About Me Story Builder</strong> in your Module 3 resources. It will create a warm, story-led bio ready for when your website is live.</span>
+    </div>
+    <div class="eab-item">
+      <div class="eab-num">2</div>
+      <span><strong>Talk to us about creating a website for you.</strong> Our Canva 1-page site option is the fastest path from no website to a professional online presence  -  and your About Me drops straight in.</span>
+    </div>
+    <div class="eab-item">
+      <div class="eab-num">3</div>
+      <span><strong>Come back and run this audit</strong> once your site is live. It'll tell you exactly what's working and what to fix first.</span>
+    </div>
+  </div>
+  <p class="exit-reminder">Every teacher in this program who has a website started without one. You're one step behind  -  not left behind.</p>
+  <button class="btn-exit-back" onclick="goBack()">← Back to the start</button>
+</div>
+
+<!-- QUIZ -->
+<div id="screen-quiz" class="screen">
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span class="progress-section-name" id="progress-section-name">Section 1</span>
+      <span class="progress-count" id="progress-count">Question 1 of 22</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:4%"></div></div>
+  </div>
+  <div id="section-header-wrap"></div>
+  <div id="questions-wrap"></div>
+  <div class="quiz-nav">
+    <button class="btn-back" id="btn-back" onclick="prevSection()" disabled>← Back</button>
+    <button class="btn-next" id="btn-next" onclick="nextSection()" disabled>
+      <span id="btn-next-label">Next section</span><span>→</span>
+    </button>
+  </div>
+</div>
+
+<!-- RESULTS / BRIEF -->
+<div id="screen-results" class="screen">
+  <div id="brief-wrap"></div>
+</div>
+
+<script>
+const sections = [
+  {
+    id: 'basics', num: 'Section 1 of 6', title: 'The Basics', icon: '🏗️',
+    desc: 'What kind of web presence do you have, and does it work for the parents trying to find you?',
+    questions: [
+      {
+        id: 'q1',
+        text: 'Do you have a dedicated website - not just a social media page?',
+        hint: 'A Facebook or Instagram page is a great start, but it\'s not the same as a website. This audit is specifically about your website - a dedicated web address that a parent can visit directly.<br><br>A custom domain like sarahspiano.com signals permanence to both Google and parents and ranks better in local search. A platform URL like yourname.mymusicstaff.com is a good starting point, but harder for Google to rank and subtly less professional. If you completed the Findability Scorecard, you already know local search matters - your domain is part of that picture.',
+        options: [
+          { label: 'Yes - I have my own website and domain (e.g. sarahspiano.com)', points: 3 },
+          { label: 'Yes - my website is hosted through a platform (e.g. yourname.mymusicstaff.com or yourname.wixsite.com)', points: 2 },
+          { label: 'I don\'t have a website yet', points: 0, exit: true }
+        ]
+      },
+      {
+        id: 'q2',
+        text: 'How does your website perform on a mobile phone?',
+        hint: 'Open your website on your phone right now. Tap the link and count slowly.<br><br>Does it look good and load quickly? Most parents search on their phones, so this matters more than how it looks on a computer.<br><br>✅ <strong>Fast</strong>  -  loads and looks great in under 3 seconds<br>⚠️ <strong>Moderate</strong>  -  loads in 3 to 5 seconds or a bit clunky to read<br>🔴 <strong>Slow or broken</strong>  -  still loading after 5 seconds, or hard to read on a small screen',
+        options: [
+          { label: 'Great  -  loads fast and looks good on my phone', points: 3 },
+          { label: 'Okay  -  it loads in under 5 seconds but it\'s a bit clunky', points: 1 },
+          { label: 'Poor  -  it\'s slow to load or hard to use on a small screen', points: 0 }
+        ]
+      },
+      {
+        id: 'q3',
+        text: 'Does your homepage have an attention-grabbing opening line?',
+        hint: 'The first words a parent reads need to make them stop and feel something. "Welcome to my studio" or "Piano lessons available" won\'t do that.<br><br>A great opening line speaks to a dream or a feeling - something like "Where music becomes a lifelong love" or "Your child\'s favourite part of the week" or "Fun, confidence and music from day one." It doesn\'t explain anything. It just makes a parent think - yes, that\'s what I want for my child.',
+        options: [
+          { label: 'Yes  -  my opening line is warm, human and would make a parent stop scrolling', points: 5 },
+          { label: 'It\'s okay but it\'s more functional than inspiring', points: 1 },
+          { label: 'No  -  it\'s just a title, a welcome message, or nothing at all', points: 0 }
+        ]
+      },
+      {
+        id: 'q4',
+        text: 'Just below your opening line, do you have a subheadline that tells parents and Google exactly who you teach and where?',
+        hint: 'Your subheadline does two jobs at once. For the parent it answers the practical question instantly - you teach piano, you\'re local, you welcome their age group. For Google it provides the searchable phrases it needs to show your site to the right people.<br><br>Something like "Piano lessons for children and adults in [your area]" sitting just below your opening line does both perfectly.',
+        options: [
+          { label: 'Yes  -  I have a clear subheadline mentioning piano, my area and who I teach', points: 4 },
+          { label: 'I mention some of these but not all', points: 1 },
+          { label: 'No  -  there\'s no subheadline, or it doesn\'t include any of these', points: 0 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'first-impressions', num: 'Section 2 of 6', title: 'First Impressions', icon: '👀',
+    desc: 'A parent will decide within 10 seconds whether to stay or go. What does your site say in that window?',
+    questions: [
+      {
+        id: 'q4fi',
+        text: 'Is it immediately clear that you teach piano?',
+        hint: 'Tap the Home button to reset to the top of the page  -  that\'s exactly what a parent sees the moment they arrive. Without scrolling, is it obvious this is a piano teacher\'s website?',
+        options: [
+          { label: 'Yes  -  it\'s obvious at a glance', points: 4 },
+          { label: 'Yes  -  but they\'d need to scroll or read to figure it out', points: 1 },
+          { label: 'Not really  -  it\'s unclear', points: 0 }
+        ]
+      },
+      {
+        id: 'q5fi',
+        text: 'Is there a photo of you instantly visible when a parent lands on your page  -  above the fold, without scrolling?',
+        hint: 'A parent needs to see your face before they will trust you with their child. A photo of the piano or a child\'s hands is not enough  -  they need to see YOU.<br><br><strong>Good, better, best:</strong><br>✓ <strong>Good</strong>  -  a warm, current photo of you smiling at the camera, in your studio or at the piano<br>✓ <strong>Better</strong>  -  a photo of you working with a student, both smiling, full of warmth and connection<br>✓ <strong>Best</strong>  -  children laughing at the piano with you. That one shot tells the whole story of what it feels like to learn music in your studio.<br><br>Whatever you choose, it must be instantly visible  -  above the fold, not buried halfway down the page.',
+        options: [
+          { label: 'Yes  -  children laughing at the piano with me, instantly visible above the fold', points: 4 },
+          { label: 'Yes  -  me working with a student, both smiling, instantly visible above the fold', points: 3 },
+          { label: 'Yes  -  a warm photo of me at the piano or in my studio, instantly visible above the fold', points: 2 },
+          { label: 'I have a photo but it\'s buried, small or below the fold', points: 1 },
+          { label: 'No photo of me  -  just a piano, a logo or a generic image', points: 0 }
+        ]
+      },
+      {
+        id: 'q6fi',
+        text: 'Does your site signal that you welcome different types of students - not just young beginners?',
+        hint: 'People want to know instantly whether you teach their age group - whether that\'s a parent checking you teach young children, or an adult wondering if they\'d be welcome too.<br><br>A simple line like "I teach beginners of all ages - children from age 4 through to adults" tells a parent immediately whether they\'re in the right place. No need to list every age group. Keep it broad and welcoming.',
+        options: [
+          { label: 'Yes - my site feels welcoming to different ages and types of students', points: 4 },
+          { label: 'Partially - it mentions more than one type of student', points: 1 },
+          { label: 'No - my site really only speaks to one type of student', points: 0 }
+        ]
+      },
+      {
+        id: 'q7fi',
+        text: 'Does your site lead with how learning music in your studio feels - or does it focus on programs, lesson formats and logistics?',
+        hint: 'Your website is not a menu. Parents come to your site to decide if you seem like the right teacher for their child.<br><br>A site that focuses on feelings like "fun, confidence, music, joy" attracts more enquiries than one that says "group lessons available, private lessons available." Lead with the feeling. The lesson format is a conversation for later.',
+        options: [
+          { label: 'Yes  -  it leads with the feeling and experience of learning music with me', points: 4 },
+          { label: 'It\'s a mix  -  some experience language, some program, lesson format and logistics explanation', points: 1 },
+          { label: 'It mostly focuses on programs, lesson formats and logistics', points: 0 }
+        ]
+      },
+      {
+        id: 'q8fi',
+        text: 'Does this site make you want to find out more?',
+        hint: 'Imagine you\'re a parent who has never heard of you. You\'ve landed on this page. Does it feel warm and inviting  -  like something exciting is happening here? Or does it feel flat and forgettable?',
+        options: [
+          { label: 'Yes  -  it feels warm and inviting, I\'d want to know more', points: 5 },
+          { label: 'It\'s okay but nothing about it excites me', points: 2 },
+          { label: 'It feels flat or outdated', points: 0 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'story', num: 'Section 3 of 6', title: 'Your Story', icon: '✍️',
+    desc: 'Parents aren\'t hiring a certificate. They\'re choosing a person. Does your About Me let them feel like they know you?',
+    questions: [
+      {
+        id: 'q8s',
+        text: 'Do you have an About Me page or section on your website?',
+        hint: 'Not just a bio at the bottom of the homepage  -  a real About Me that tells your story. Why you teach, who you are beyond your qualifications.',
+        options: [
+          { label: 'Yes  -  it shares how my story shaped the way I teach, and why my approach is more engaging, interactive and fun than the piano lessons most parents remember', points: 15 },
+          { label: 'I have a fairly plain bio but it doesn\'t connect to my passion for teaching music', points: 7 },
+          { label: 'I just list my qualifications and a brief history of what I\'ve done musically', points: 0 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'cta', num: 'Section 4 of 6', title: 'The Call to Action', icon: '🎯',
+    desc: 'Your website has one job: get a parent to take the next step. Is that step obvious?',
+    questions: [
+      {
+        id: 'q11',
+        text: 'Is there a clear, prominent button or link inviting parents to contact you  -  whether that\'s a form, a DM or a message?',
+        hint: 'Think "Send me a message", "Get in touch", "DM me on Instagram" or "Fill in this form." Something that stands out visually and tells the parent exactly what to do next. If you have to hunt for it, it\'s not prominent enough.',
+        options: [
+          { label: 'Yes  -  a clear, visible button directing them to contact me', points: 4 },
+          { label: 'There\'s a button but it\'s lower down the page', points: 2 },
+          { label: 'No button  -  they\'d have to hunt through the site to find my contact details', points: 0 }
+        ]
+      },
+      {
+        id: 'q20',
+        text: 'How can a parent contact you from your website?',
+        hint: 'One clear, well-chosen contact channel works better than several competing options. Pick the channel you will respond to fastest and make it the obvious next step. A parent who has to choose between three different ways to reach you will often choose none of them.',
+        options: [
+          { label: 'I have a DM or message button (Instagram, WhatsApp, Facebook or similar)', points: 4 },
+          { label: 'I have a contact or enquiry form', points: 4 },
+          { label: 'I have both a form and a DM option', points: 3 },
+          { label: 'I have a phone number only  -  no form or message option', points: 1 },
+          { label: 'None of the above  -  parents would have to search for my contact details', points: 0 }
+        ]
+      },
+      {
+        id: 'q12',
+        text: 'Does the call to action feel low-risk and easy for a parent to take?',
+        hint: 'Good CTAs feel like a conversation starter: "DM me," "Send me a message," "Enquire about availability," or "Request a callback." The goal is to start a conversation, not secure an enrolment. You need to meet the family first anyway to make sure it\'s the right fit.',
+        options: [
+          { label: 'Yes  -  it invites them to message me or complete an enquiry form', points: 5 },
+          { label: 'Somewhat  -  it invites contact but the next step could feel clearer', points: 1 },
+          { label: 'No  -  it asks for too much commitment too soon', points: 0 }
+        ]
+      },
+      {
+        id: 'q13',
+        text: 'Is there only ONE main call to action  -  not three competing options?',
+        hint: 'The more choices a parent has, the less likely they are to take any of them. One clear next step converts better than three. Pick the channel that works best for you  -  DM, text, enquiry form, or email  -  and make that the obvious thing to do.',
+        options: [
+          { label: 'One clear main CTA  -  focused and simple', points: 3 },
+          { label: 'A couple of options but not overwhelming', points: 1 },
+          { label: 'There are too many things to click', points: 0 },
+          { label: 'There is no clear call to action or next step', points: 0 }
+        ]
+      },
+      {
+        id: 'q14',
+        text: 'Can a parent see a way to contact you without scrolling to the very bottom?',
+        hint: 'Your phone number, email, or contact button should be visible near the top on mobile  -  not buried in a footer that half of visitors never reach.',
+        options: [
+          { label: 'Yes  -  my contact number is instantly visible when you land on my page (above the fold)', points: 3 },
+          { label: 'Somewhat  -  contact details are visible near the top', points: 1 },
+          { label: 'It\'s in the footer, menu or on a separate Contact page', points: 0 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'trust', num: 'Section 5 of 6', title: 'Trust Signals', icon: '⭐',
+    desc: 'Once a parent is interested, they need to feel reassured. What tells them "other families chose this teacher and they don\'t regret it"?',
+    questions: [
+      {
+        id: 'q15',
+        text: 'Are there any testimonials from current or past families on your website?',
+        hint: 'Even 2-3 short quotes make a significant difference. "My daughter loves going to piano every week" is worth more than a paragraph of your own words. These are words you have chosen to display - warm, personal and selected by you.',
+        options: [
+          { label: 'Yes  -  three or more testimonials visible', points: 5 },
+          { label: 'I have one or two but they\'re not very prominent', points: 2 },
+          { label: 'No testimonials at all', points: 0 }
+        ]
+      },
+      {
+        id: 'q18',
+        text: 'Do you mention or link to your Google reviews on your website?',
+        hint: 'Google reviews are different from the testimonials on your website. A parent can go and read them directly on Google - written by strangers, unprompted, with dates. You can\'t edit them and you can\'t fake them. That\'s exactly why they carry so much weight.<br><br>Even a simple "⭐⭐⭐⭐⭐ on Google" with a link adds a layer of credibility your own words can\'t match.',
+        options: [
+          { label: 'Yes  -  I link to or reference my Google reviews', points: 3 },
+          { label: 'I have Google reviews but don\'t mention them on my site', points: 1 },
+          { label: 'I don\'t have Google reviews yet', points: 0 }
+        ]
+      },
+      {
+        id: 'q18b',
+        text: 'Do you display your professional memberships, qualifications or safety checks on your website?',
+        hint: 'A small row of logos or badges does a lot of quiet trust work. Most teachers have more to show than they realise  -  a music teachers\' association membership logo, a Working With Children check badge, a degree or diploma, or professional development membership badges.<br><br>The best place for these is just below your About Me section. Your story lands first, then the proof bar quietly reinforces it. A parent thinks "I like her" and then looks down and thinks "and she\'s legit." On mobile it sits as a simple row of small logos that wraps neatly.<br><br>If you complete the full GPU accreditation you will receive a Forte Accredited Teacher badge to add here  -  something to look forward to.',
+        options: [
+          { label: 'Yes  -  I have a logo bar or badge row showing my memberships and checks', points: 3 },
+          { label: 'I mention some of these in text but don\'t display them visually', points: 1 },
+          { label: 'No  -  I haven\'t thought about displaying these yet', points: 0 }
+        ]
+      },
+      {
+        id: 'q16',
+        text: 'Which of these photos do you currently have on your website?',
+        hint: 'Tick every type of photo that is currently live on your site. Each one adds credibility and warmth. If you do not have one yet, it goes on your Content Collection list.',
+        multiselect: true,
+        options: [
+          { label: 'A current photo of me at the piano or in my studio', points: 1 },
+          { label: 'Real photos of students learning and enjoying music', points: 1 },
+          { label: 'A studio atmosphere shot (your piano in a welcoming space)', points: 1 },
+          { label: 'A group of students at the piano together', points: 1 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'contact', num: 'Section 6 of 6', title: 'Contact & Enquiry', icon: '📬',
+    desc: 'A parent is interested. Can they actually reach you  -  in the way they prefer, at the moment they decide?',
+    questions: [
+      {
+        id: 'q19',
+        text: 'Is your phone number clearly visible and tappable on your website?',
+        hint: 'On mobile, a tappable phone number means one tap to call. It should be obvious  -  ideally near the top of the page as well as in the footer.',
+        options: [
+          { label: 'Yes  -  tappable phone number, easy to find', points: 2 },
+          { label: 'Yes  -  tappable, but not very prominent', points: 2 },
+          { label: 'Not tappable  -  but easy to find', points: 1 },
+          { label: 'Not tappable and not prominent', points: 0 }
+        ]
+      },
+      {
+        id: 'q19b',
+        text: 'Can parents reach you easily at any time of day  -  even when you are teaching?',
+        hint: 'Most enquiries happen in the evening when you are busy teaching. A contact form, a DM button, or a WhatsApp link all work while you are teaching  -  a phone number alone does not. The best setups also have an auto-reply so parents get an instant acknowledgement even at 10pm.',
+        options: [
+          { label: 'Yes  -  I have a form, DM button or message option that works at any hour', points: 3 },
+          { label: 'Partly  -  parents can call and leave a voicemail or message', points: 1 },
+          { label: 'No  -  there\'s no way to reach me outside of a live phone call', points: 0 }
+        ]
+      },
+      {
+        id: 'q21',
+        text: 'Is there a link to your Facebook page or Instagram from your website?',
+        hint: 'Many parents will want to look you up on social media before they reach out. Make it easy  -  a quick tap from your site to your Instagram lets them see you\'re real, active and likeable.',
+        options: [
+          { label: 'Yes  -  links to my social accounts', points: 2 },
+          { label: 'I have social accounts but don\'t link to them from my site', points: 1 },
+          { label: 'No social links on my site', points: 0 }
+        ]
+      },
+      {
+        id: 'q21b',
+        text: 'Is the text on your site easy to read for a tired parent on a phone?',
+        hint: 'Many teacher websites have small text, pale grey fonts, or dense paragraphs that are exhausting to read on a small screen at night. If a parent has to squint or zoom in, they\'ll give up.',
+        options: [
+          { label: 'Yes  -  clear font, strong contrast, short sections', points: 2 },
+          { label: 'Mostly  -  readable, but a little dense or small in places', points: 1 },
+          { label: 'No  -  too small, too pale, crowded or hard to scan', points: 0 }
+        ]
+      },
+      {
+        id: 'q22b',
+        text: 'Does your website tell parents how quickly you will respond to their enquiry?',
+        hint: 'A simple line like "I\'ll get back to you within 24 hours" near your contact form or CTA button reduces parent anxiety and sets a professional expectation. Most teacher websites don\'t have this - which means adding it is an instant differentiator.<br><br>If your main CTA is a DM button, put this line near the button on your website. Both Instagram and Facebook Business accounts also let you set up an automatic reply - so parents get an instant acknowledgement even when you\'re teaching. Worth setting up on both.',
+        options: [
+          { label: 'Yes  -  I have a clear response time promise near my contact details', points: 2 },
+          { label: 'Not explicitly  -  but I respond quickly in practice', points: 1 },
+          { label: 'No  -  there\'s nothing about response time on my site', points: 0 }
+        ]
+      },
+      {
+        id: 'q25',
+        text: 'The Big Picture: if a parent landed on your website right now, how likely are they to get in touch?',
+        hint: 'Gut feeling only. You\'re a busy parent of a 6-year-old who just moved to your area. You land on your site cold. Do you feel compelled to reach out  -  or do you keep scrolling?',
+        options: [
+          { label: 'Very likely  -  the site is warm, clear and inviting', points: 4 },
+          { label: 'Possibly  -  it\'s decent but not really compelling', points: 3 },
+          { label: 'Unlikely  -  I\'d probably keep looking', points: 0 }
+        ]
+      }
+    ]
+  }
+];
+
+let currentSection = 0;
+let answers = {};
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function startQuiz() { show('screen-quiz'); renderSection(); }
+function goBack() { show('screen-intro'); }
+function jumpTo(sectionIndex) { answers = {}; show('screen-quiz'); currentSection = sectionIndex; renderSection(); }
+
+function renderSection() {
+  const sec = sections[currentSection];
+  const totalQ = sections.reduce((a,s) => a + s.questions.length, 0);
+  const doneQ = sections.slice(0, currentSection).reduce((a,s) => a + s.questions.length, 0);
+  const pct = Math.max(4, Math.round((doneQ / totalQ) * 100));
+
+  document.getElementById('progress-section-name').textContent = sec.title;
+  document.getElementById('progress-count').textContent = `Section ${currentSection+1} of ${sections.length}`;
+  document.getElementById('progress-fill').style.width = pct + '%';
+
+  document.getElementById('section-header-wrap').innerHTML = `
+    <div class="section-header fade-up">
+      <div class="section-num">${sec.num}</div>
+      <div class="section-title">${sec.title}</div>
+      <div class="section-desc">${sec.desc}</div>
+      <div class="section-icon">${sec.icon}</div>
+    </div>`;
+
+  const qWrap = document.getElementById('questions-wrap');
+  qWrap.innerHTML = '';
+  sec.questions.forEach((q, qi) => {
+    const ans = answers[q.id];
+    const card = document.createElement('div');
+    card.setAttribute('data-qid', q.id);
+    card.className = 'question-card' + (ans !== undefined ? ' answered' : '') + ' fade-up';
+    card.style.animationDelay = (qi * 0.07) + 's';
+    const isMulti = q.multiselect;
+    const currentSel = isMulti && answers[q.id] ? answers[q.id].selected : [];
+    card.innerHTML = `
+      <div class="q-number">Question ${doneQ + qi + 1}${isMulti ? ' — tick all that apply' : ''}</div>
+      <div class="q-text">${q.text}</div>
+      ${q.hint ? `<div class="q-hint">${q.hint}</div>` : ''}
+      <div class="options">${q.options.map((opt, oi) => {
+        const isSel = isMulti ? currentSel.includes(oi) : (ans !== undefined && ans.optionIdx === oi);
+        return `<button class="option${isSel ? ' selected' : ''}" onclick="selectAnswer('${q.id}', ${oi}, ${opt.points}, ${!!opt.exit})">
+          <div class="opt-dot" style="${isMulti ? 'border-radius:4px;' : ''}"></div>
+          <span>${opt.label}</span>
+        </button>`;
+      }).join('')}</div>`;
+    qWrap.appendChild(card);
+  });
+
+  document.getElementById('btn-back').disabled = currentSection === 0;
+  document.getElementById('btn-next-label').textContent = currentSection === sections.length - 1 ? 'See my results' : 'Next section';
+  updateNextBtn();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function selectAnswer(qId, optionIdx, points, isExit) {
+  if (isExit) { answers[qId] = { points, optionIdx }; show('screen-no-website'); return; }
+  
+  // Find the question to check if it's multiselect
+  const q = sections.flatMap(s => s.questions).find(q => q.id === qId);
+  
+  if (q && q.multiselect) {
+    // Toggle this option in a set
+    if (!answers[qId]) answers[qId] = { selected: [], points: 0 };
+    const sel = answers[qId].selected;
+    const idx = sel.indexOf(optionIdx);
+    if (idx === -1) { sel.push(optionIdx); } else { sel.splice(idx, 1); }
+    answers[qId].points = sel.reduce((sum, i) => sum + q.options[i].points, 0);
+    answers[qId].optionIdx = sel.length > 0 ? sel[0] : -1;
+    // Update visual
+    const card = document.querySelector(`.question-card[data-qid="${qId}"]`);
+    if (card) {
+      card.classList.toggle('answered', sel.length > 0);
+      card.querySelectorAll('.option').forEach((btn, bi) => {
+        btn.classList.toggle('selected', sel.includes(bi));
+      });
+    }
+  } else {
+    answers[qId] = { points, optionIdx };
+    const card = document.querySelector(`.question-card[data-qid="${qId}"]`);
+    if (card) {
+      card.classList.add('answered');
+      card.querySelectorAll('.option').forEach((btn, bi) => btn.classList.toggle('selected', bi === optionIdx));
+    }
+  }
+  updateNextBtn();
+}
+
+function updateNextBtn() {
+  const sec = sections[currentSection];
+  const allAnswered = sec.questions.every(q => {
+    if (q.multiselect) return true; // multiselect is always optional
+    return answers[q.id] !== undefined;
+  });
+  document.getElementById('btn-next').disabled = !allAnswered;
+}
+
+function nextSection() {
+  if (currentSection < sections.length - 1) { currentSection++; renderSection(); }
+  else showResults();
+}
+function prevSection() { if (currentSection > 0) { currentSection--; renderSection(); } }
+
+function showResults() {
+  show('screen-results');
+  const sectionScores = sections.map(sec => {
+    let earned = 0, possible = 0;
+    sec.questions.forEach(q => {
+      if (q.multiselect) {
+        possible += q.options.reduce((sum, o) => sum + o.points, 0);
+        if (answers[q.id]) earned += answers[q.id].points;
+      } else {
+        const maxPts = Math.max(...q.options.filter(o => !o.exit).map(o => o.points));
+        possible += maxPts;
+        if (answers[q.id]) earned += answers[q.id].points;
+      }
+    });
+    return { ...sec, earned, possible, pct: possible > 0 ? Math.round((earned/possible)*100) : 0 };
+  });
+  const totalEarned = sectionScores.reduce((a,s) => a+s.earned, 0);
+  const totalPossible = sectionScores.reduce((a,s) => a+s.possible, 0);
+  const pct = Math.round((totalEarned/totalPossible)*100);
+
+  const grades = [
+    { min:90, cls:'great',      letter:'🏆', label:'Outstanding!',        desc:'Your studio website is in excellent shape. A parent landing on it today would get a wonderful first impression. Keep it fresh and make sure you retake this audit every six months to stay on top of any gaps.' },
+    { min:75, cls:'great',      letter:'A', label:'Strong foundation',   desc:'Your website is doing a solid job. A parent landing on it today would get a good first impression. Use this playbook to polish the remaining gaps.' },
+    { min:55, cls:'good',       letter:'B', label:'Getting there',        desc:'You have something to work with, but there are clear gaps likely costing you enquiries. Most are fixable quickly. Work through the priorities in this playbook.' },
+    { min:35, cls:'good',       letter:'C', label:'Needs some attention', desc:'Your website has the bones of something useful, but right now it is not doing much of the work for you. The fixes in this playbook will make a real difference.' },
+    { min:0,  cls:'needs-work', letter:'D', label:'Time for a rebuild',   desc:'Your website is not currently set up to convert curious parents into enquiries. This playbook walks you through exactly what needs to change.' }
+  ];
+  const g = grades.find(gr => pct >= gr.min);
+  const isCelebration = pct >= 90;
+  const icons = ['🏗️','👀','✍️','🎯','⭐','📬'];
+
+  const priorityData = {
+    basics: { title:'Fix your technical foundation', why:'If your site is slow or broken on mobile, parents leave before they have read a single word. Everything else depends on this.', diff:'medium', diffLabel:'Needs some work', actions:['Test your site speed using Google PageSpeed Insights (free)','Compress all images using tinypng.com before uploading','Check your site on both iPhone and Android','Consider moving to a platform with better mobile support if needed'] },
+    'first-impressions': { title:'Strengthen your first 10 seconds', why:'A parent decides in 10 seconds whether to stay or leave. Your opening line, photo and overall feeling need to make them want to read more.', diff:'quick', diffLabel:'Quick win', actions:['Write an attention-grabbing opening line (see Content Collection below)','Add a current bright photo of yourself near the top of the page','Make sure your subheadline states piano, your area and who you teach','Read your site cold as a stranger — does it feel warm and inviting?'] },
+    story: { title:'Rewrite your About Me', why:'Parents are not hiring a certificate. They are choosing a person. A warm human About Me converts browsers into enquiries faster than anything else on the page.', diff:'quick', diffLabel:'Quick win', actions:['Complete My About Me Story Builder in your Module 3 resources','You will receive two versions - Website and Parent Info Pack','Read it out loud - if a sentence does not sound like you, change it','Replace your current bio with your new one'] },
+    cta: { title:'Add one clear call to action', why:'Your website has one job: get a parent to start a conversation. If the next step is unclear or asks for too much commitment, they will leave without making contact. Above the fold means everything visible before you scroll - on a phone that is the first screen, on a desktop the top portion of the page. If a parent has to scroll to find how to contact you, most will not bother.', diff:'quick', diffLabel:'Quick win', actions:['Choose your preferred contact channel: form, DM, phone, WhatsApp or email','Add a button above the fold and connect it to your preferred channel - e.g. it opens a form, triggers a DM, or dials your number with one tap','Remove or reduce other competing CTAs - keep it to one clear next step','Make sure your phone number is also visible in your navigation bar or header - even if your main CTA is a form or DM, parents still want to see a number'] },
+    trust: { title:'Build your trust signals', why:'Other families saying you are wonderful is worth ten times more than you saying it yourself. Parents need proof before they reach out.', diff:'medium', diffLabel:'Needs some work', actions:['Ask 2-3 current parents for a short testimonial this week','Gather your logo bar: association membership, Working With Children check, any badges','Link to or reference your Google reviews if you have them','Add real student photos — bright, warm, genuine moments only'] },
+    contact: { title:'Make it easy to reach you', why:'Most parents enquire late at night when they cannot call. A tappable phone number and a simple form catches enquiries you would otherwise lose.', diff:'quick', diffLabel:'Quick win', actions:['Make your phone number tappable (click-to-call)','Add a simple enquiry form: name, contact, child age, message','Add links to your Instagram and Facebook business pages','Check your text is readable on a phone — no pale grey fonts or tiny text'] }
+  };
+
+  const topPriorities = [...sectionScores].sort((a,b) => a.pct-b.pct).filter(s => s.pct < 85).slice(0,4);
+
+  const getAns = (qid) => {
+    const q = sections.flatMap(s => s.questions).find(q => q.id === qid);
+    if (!q || answers[qid] === undefined) return null;
+    return { label: q.options[answers[qid].optionIdx]?.label, points: answers[qid].points, max: Math.max(...q.options.filter(o=>!o.exit).map(o=>o.points)) };
+  };
+
+  const heroPhotoScore = getAns('q5fi');
+  const photoSel = answers['q16'] ? (answers['q16'].selected || []) : [];
+  const heroOptIdx = heroPhotoScore ? heroPhotoScore.optionIdx : -1;
+  const aboutMeScore = getAns('q8s');
+  const openingLineScore = getAns('q3');
+  const subheadScore = getAns('q4');
+  const ctaScore = getAns('q14');
+  const badgeScore = getAns('q18b');
+  const reviewScore = getAns('q18');
+  const testimonialScore = getAns('q15');
+  const websiteType = getAns('q1');
+  const mobileScore = getAns('q2');
+
+  const photoItems = [
+    { title:'A warm photo of you at the piano or in your studio (minimum)', note:'Bright, warm light. Looks like you do today. Genuine smile. This is your starting point — instantly visible above the fold.', done: heroOptIdx >= 0 && heroOptIdx <= 2 },
+    { title:'A photo of you working with a student — both smiling', note:'Better than a solo shot. Shows warmth, connection and the teaching relationship. Both faces visible, genuine engagement, good light.', done: heroOptIdx >= 0 && heroOptIdx <= 1 },
+    { title:'Children laughing at the piano with you (the goal)', note:'The most powerful photo a music teacher can have. Tells the whole story instantly — fun, connection, joy, your teaching style. Plan this deliberately once you start teaching groups.', done: heroOptIdx === 0 },
+    { title:'Real photos of students learning and enjoying music', note:'Real moments only - hands on keys, faces lit up. Check lighting and background. Get parent permission for photos showing faces.', done: photoSel.includes(1) },
+    { title:'A studio atmosphere shot', note:'Your piano in a tidy welcoming space. Good natural light. Can be used as a background or section divider.', done: photoSel.includes(2) }
+  ];
+  const wordItems = [
+    { title:'Attention-grabbing opening line', note:'Something that makes a parent stop scrolling. E.g. "Where music becomes a lifelong love" or "Your child\'s favourite part of the week." Sells the feeling, not the facts.', done: openingLineScore && openingLineScore.points >= 3 },
+    { title:'Subheadline with searchable words', note:'"Piano lessons for children and adults in [your area]." Tells parents and Google exactly who you teach and where. Sits just below your opening line.', done: subheadScore && subheadScore.points >= 3 },
+    { title:'About Me story (website version)', note: aboutMeScore && aboutMeScore.points >= 8 ? 'Your About Me is already strong. Run it through My About Me Story Builder anyway - you may be surprised what it draws out, and it will give you useful ideas to tweak your story further.' : 'Use My About Me Story Builder to create a warm, story-led bio that connects with parents and shows them why learning music with you is different.', done: aboutMeScore && aboutMeScore.points >= 8 },
+    { title:'About Me story (Parent Info Pack version)', note: aboutMeScore && aboutMeScore.points >= 8 ? 'My About Me Story Builder will instantly produce a shorter version of your story at the same time - ready to drop straight into your Parent Info Pack.' : 'My About Me Story Builder also produces a shorter version at the same time - ready to drop into your Parent Info Pack.', done: aboutMeScore && aboutMeScore.points >= 8 }
+  ];
+  const q11Score = getAns('q11');
+  const q22bScore = getAns('q22b');
+  const decisionItems = [
+    { title:'What will your call to action be?', note:'Choose one channel: enquiry form, DM on Instagram, WhatsApp, email, or phone. Pick whichever you will respond to fastest.', done: ctaScore && ctaScore.points >= 3 },
+    { title:'What will your CTA button say?', note:'E.g. "Send me a message" / "Get in touch" / "DM me on Instagram" / "Enquire about availability." One button. Low commitment.', done: q11Score && q11Score.points >= 3 },
+    { title:'What is your response time promise?', note:'E.g. "I\'ll get back to you within 24 hours." Sets expectation and reduces parent anxiety. Put it near your contact form or CTA button. Consider setting up an auto-reply on Instagram and Facebook too.', done: q22bScore && q22bScore.points >= 2 }
+  ];
+  const testimonialItems = [
+    { title:'At least 3 written testimonials from current or past families', note:'Ask by text or email: "Could you write 2-3 sentences about your experience?" First name and child\'s age if they consent.', done: testimonialScore && testimonialScore.points >= 4 }
+  ];
+  const credItems = [
+    { title:'Working With Children check badge or certificate number', note:'Display visually near your About Me or in a logo bar. Parents of young children increasingly look for this.', done: badgeScore && badgeScore.points >= 3 },
+    { title:'Music teachers association membership logo', note:'MTNA, ABRSM, Music Teachers Australia, or your relevant national association. Download the official logo from your membership account.', done: badgeScore && badgeScore.points >= 3 },
+    { title:'Any other professional membership or accreditation badges', note:'Professional development programs, specialist training, studio accreditations. If it came with a badge or logo, include it.', done: badgeScore && badgeScore.points >= 3 },
+    { title:'Google Business profile URL and star rating', note:'Your Google reviews link. Even a simple "5 stars on Google" with a link adds third-party credibility. Covered in Module 1.', done: reviewScore && reviewScore.points >= 2 },
+    { title:'Forte Accredited Teacher badge', note:'You will receive this on completing the full GPU accreditation. Add it to your logo bar when you have it.', done: false }
+  ];
+
+  const collectionRow = (item) => `
+    <div class="collection-item ${item.done ? 'done' : 'needed'}">
+      <div class="collection-checkbox">${item.done ? '✓' : ''}</div>
+      <div class="collection-item-text">
+        <div class="collection-item-title">${item.title}</div>
+        <div class="collection-item-note">${item.note}</div>
+      </div>
+    </div>`;
+
+  document.getElementById('brief-wrap').innerHTML = `
+    <div class="brief-wrap" id="printable-brief">
+      <div class="brief-action-bar no-print">
+        <div style="width:100%;background:#FFD6E2;border:2px solid #D41E65;border-radius:16px;padding:20px 24px;margin-bottom:8px;">
+          <div style="font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#D41E65;margin-bottom:8px;">Save your Playbook</div>
+          <p style="font-size:15px;color:#1A1A18;line-height:1.6;margin-bottom:16px;">Click the button below to save your personalised Playbook as a PDF. Then share it in the GPU Facebook group or email it to Paul and Gillian at <strong>paulandgillian@pianoteachingsuccess.com</strong></p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+            <button class="btn-pdf" onclick="window.print()" style="font-size:17px;padding:16px 36px;">🖨 Save as PDF</button>
+            <button class="btn-restart-small" onclick="restart()">↺ Retake the quiz</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:32px;padding-bottom:20px;border-bottom:2px solid var(--pink);">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Module 3 · Studio Website Playbook · Piano Teaching Success</div>
+        ${isCelebration ? `
+        <div style="background:linear-gradient(135deg,#1A7A52,#0F5A3C);border-radius:16px;padding:32px 28px;margin-bottom:20px;text-align:center;position:relative;overflow:hidden;" id="celebration-banner">
+          <div class="burst" id="fw1"></div>
+          <div class="burst" id="fw2"></div>
+          <div class="burst" id="fw3"></div>
+          <div style="position:relative;z-index:2;">
+            <div style="font-size:52px;margin-bottom:10px;">🏆</div>
+            <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:white;margin-bottom:10px;">Congratulations!</div>
+            <div style="font-size:16px;color:rgba(255,255,255,0.9);line-height:1.7;">You scored ${pct}% — your studio website is in outstanding shape.<br>Well done. You should be really proud of this result.</div>
+          </div>
+        </div>` : ''}
+        <h1 style="font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,40px);font-weight:900;color:var(--black);line-height:1.15;margin-bottom:8px;">Your Studio Website <em style="color:var(--pink);font-style:italic;">Playbook</em></h1>
+        <p style="font-size:15px;color:var(--muted);font-weight:300;line-height:1.6;">Use this playbook to update your website yourself or hand it to a web designer. Work through the Content Collection checklist first — gather everything before any changes are made.</p>
+      </div>
+
+      <div class="brief-chapter">
+        <div class="brief-chapter-header"><div class="brief-chapter-num">1</div><div class="brief-chapter-title">Your Studio Website Scorecard</div></div>
+        <div class="brief-overall-grade ${g.cls}">
+          <div class="brief-grade-letter">${g.letter}</div>
+          <div>
+            <div class="brief-grade-label">${g.label}</div>
+            <div class="brief-grade-desc">${g.desc}</div>
+            <div class="brief-grade-score">${totalEarned} / ${totalPossible} points · ${pct}%</div>
+          </div>
+        </div>
+        <div class="brief-section-scores">
+          ${sectionScores.map((s,i) => `<div class="brief-section-row"><div class="brief-section-icon">${icons[i]}</div><div class="brief-section-info"><div class="brief-section-name">${s.title}</div><div class="brief-section-score">${s.earned}/${s.possible} pts · ${s.pct}%</div></div></div>`).join('')}
+        </div>
+      </div>
+
+      <div class="brief-chapter">
+        <div class="brief-chapter-header"><div class="brief-chapter-num">2</div><div class="brief-chapter-title">Your Priority Action List</div></div>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;">These are your biggest opportunities ranked by impact. Start here — do not try to fix everything at once.</p>
+        ${topPriorities.map((s,i) => { const p = priorityData[s.id]; if(!p) return ''; return `<div class="brief-priority-item"><div class="brief-priority-num">${i+1}</div><div style="flex:1;"><div class="brief-priority-title">${p.title}</div><div class="brief-priority-why">${p.why}</div><div class="brief-priority-diff ${p.diff}">${p.diffLabel}</div><ul style="margin-top:10px;padding-left:18px;">${p.actions.map(a=>`<li style="font-size:13px;color:var(--text);line-height:1.7;margin-bottom:3px;">${a}</li>`).join('')}</ul></div></div>`; }).join('')}
+        ${sectionScores.filter(s=>s.pct>=85).length>0?`<div style="background:var(--green-light);border:1.5px solid #4DC898;border-radius:14px;padding:18px 20px;margin-top:8px;"><div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:10px;">✅ Already working well</div>${sectionScores.filter(s=>s.pct>=85).map(s=>`<div style="font-size:13.5px;color:#1A4A35;margin-bottom:6px;display:flex;gap:8px;"><span>✓</span><span>${s.title} — ${s.earned}/${s.possible} pts</span></div>`).join('')}</div>`:''}
+      </div>
+
+      <div class="brief-chapter">
+        <div class="brief-chapter-header"><div class="brief-chapter-num">3</div><div class="brief-chapter-title">Your Content Collection List</div></div>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;">Gather everything on this list before briefing a designer or making changes. Red items still need collecting. Green items are already in good shape.</p>
+        <div class="collection-category"><div class="collection-category-title">📸 Photos to collect</div>${photoItems.map(collectionRow).join('')}</div>
+        <div class="collection-category"><div class="collection-category-title">✍️ Words to write</div>${wordItems.map(collectionRow).join('')}</div>
+        <div class="collection-category"><div class="collection-category-title">💬 Testimonials to gather</div>${testimonialItems.map(collectionRow).join('')}</div>
+        <div class="collection-category"><div class="collection-category-title">🎯 Decisions to make</div>${decisionItems.map(collectionRow).join('')}</div>
+        <div class="collection-category"><div class="collection-category-title">🏅 Credentials & badges to gather</div>${credItems.map(collectionRow).join('')}</div>
+      </div>
+
+      <div style="background:var(--gray);border:1.5px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:32px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pink);margin-bottom:8px;">When you have collected everything above</div>
+        <p style="font-size:14px;color:var(--text);line-height:1.7;">Once every item on your Content Collection list is ticked off, you are ready to brief a web designer. A designer brief template will be provided in your Module 3 resources — it takes everything you have gathered and turns it into a clear instruction document your designer can work from straight away.</p>
+      </div>
+
+      <div class="brief-footer">
+        Piano Teaching Success · Group Piano University · Studio Website Playbook<br>
+        Generated ${new Date().toLocaleDateString('en-AU', {day:'numeric',month:'long',year:'numeric'})}
+      </div>
+    </div>
+  `;
+if (isCelebration) setTimeout(launchFireworks, 200);
+}
+
+
+
+function launchFireworks() {
+  const colours = ['#FFD700','#FF69B4','#00FFFF','#FF6347','#7FFF00','#FF1493','#FFA500','#ADFF2F'];
+  function burst(containerId, offsetX, offsetY) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+    container.style.left = offsetX + '%';
+    container.style.top = offsetY + '%';
+    for (let i = 0; i < 16; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'firework';
+      const angle = (i / 16) * 360;
+      const dist = 40 + Math.random() * 60;
+      dot.style.setProperty('--tx', Math.cos(angle * Math.PI/180) * dist + 'px');
+      dot.style.setProperty('--ty', Math.sin(angle * Math.PI/180) * dist + 'px');
+      dot.style.background = colours[Math.floor(Math.random() * colours.length)];
+      dot.style.animationDelay = (Math.random() * 0.3) + 's';
+      container.appendChild(dot);
+    }
+  }
+  function go() {
+    burst('fw1', 15 + Math.random()*20, 20 + Math.random()*60);
+    burst('fw2', 45 + Math.random()*20, 10 + Math.random()*70);
+    burst('fw3', 70 + Math.random()*15, 20 + Math.random()*60);
+  }
+  go();
+  if (window._fwInterval) clearInterval(window._fwInterval);
+  window._fwInterval = setInterval(go, 1600);
+}
+
+function restart() { 
+  if (window._fwInterval) clearInterval(window._fwInterval);
+  answers = {}; currentSection = 0; show('screen-intro'); 
+}
+</script>
+</body>
+</html>
